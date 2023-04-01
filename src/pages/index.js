@@ -297,7 +297,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Coding Challenge Courier Service
         </h1>
         <p className={styles.centerContainer} style={{ fontSize: 24 }} data-testid='radio'>Select problem:</p>
         <FormControl className={styles.centerContainer}>
@@ -309,15 +309,15 @@ export default function Home() {
           >
             <FormControlLabel
               value="top"
-              control={<Radio onClick={() => { handleSelectProblem('1') }} inputProps={{ "data-testid": "radio-1" }}/>}
+              control={<Radio onClick={() => { handleSelectProblem('1') }} inputProps={{ "data-testid": "radio-1" }} />}
               label="Problem 1"
-              
+
             />
             <FormControlLabel
               value="start"
-              control={<Radio onClick={() => { handleSelectProblem('2') }} inputProps={{ "data-testid": "radio-2" }}/>}
+              control={<Radio onClick={() => { handleSelectProblem('2') }} inputProps={{ "data-testid": "radio-2" }} />}
               label="Problem 2"
-              
+
             />
           </RadioGroup>
         </FormControl>
