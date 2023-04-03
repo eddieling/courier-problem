@@ -343,6 +343,7 @@ export default function Home() {
                     value={baseDeliverCost}
                     onChange={(e) => setBaseDeliveryCost(e.target.value)}
                     error={isNaN(baseDeliverCost)}
+                    helperText={isNaN(baseDeliverCost) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "delivery-cost-text-field" }}
                   />
                   <TextField
@@ -352,6 +353,7 @@ export default function Home() {
                     value={noOfPackages}
                     onChange={(e) => setNoOfPackages(e.target.value)}
                     error={isNaN(noOfPackages)}
+                    helperText={isNaN(noOfPackages) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "packages-text-field" }}
                   />
                 </Box>
@@ -414,6 +416,7 @@ export default function Home() {
                     value={baseDeliverCost2}
                     onChange={(e) => setBaseDeliveryCost2(e.target.value)}
                     error={isNaN(baseDeliverCost2)}
+                    helperText={isNaN(baseDeliverCost2) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "delivery-cost-text-field-2" }}
                   />
                   <TextField
@@ -423,6 +426,7 @@ export default function Home() {
                     value={noOfPackages2}
                     onChange={(e) => setNoOfPackages2(e.target.value)}
                     error={isNaN(noOfPackages2)}
+                    helperText={isNaN(noOfPackages2) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "packages-text-field-2" }}
                   />
                 </Box>
@@ -469,6 +473,7 @@ export default function Home() {
                     value={noOfVehicles}
                     onChange={(e) => setNoOfVehicles(e.target.value)}
                     error={isNaN(noOfVehicles)}
+                    helperText={isNaN(noOfVehicles) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "no-of-vehicles-text-field-2" }}
                   />
                   <TextField
@@ -478,6 +483,7 @@ export default function Home() {
                     value={maxSpeed}
                     onChange={(e) => setMaxSpeed(e.target.value)}
                     error={isNaN(maxSpeed)}
+                    helperText={isNaN(maxSpeed) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "max-speed-text-field-2" }}
                   />
                   <TextField
@@ -487,6 +493,7 @@ export default function Home() {
                     value={maxWeight}
                     onChange={(e) => setMaxWeight(e.target.value)}
                     error={isNaN(maxWeight)}
+                    helperText={isNaN(maxWeight) ? "Enter number only" : "" }
                     inputProps={{ "data-testid": "max-weight-text-field-2" }}
                   />
                 </Box>
