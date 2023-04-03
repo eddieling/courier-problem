@@ -15,25 +15,27 @@ export default function Home() {
   const [userInputTextArea, setUserInputTextArea] = useState('');
   const [deliveryCostObject, setDeliveryCostObject] = useState(null);
 
-  const [baseDeliverCost2, setBaseDeliveryCost2] = useState('100');
-  const [noOfPackages2, setNoOfPackages2] = useState('5');
-  const [userInputTextArea2, setUserInputTextArea2] = useState(`PKG1 50 30 OFR001
-  PKG2 75 125 OFR008
-  PKG3 175 100 OFR003
-  PKG4 110 60 OFR002
-  PKG5 155 95 NA`);
+  const [baseDeliverCost2, setBaseDeliveryCost2] = useState('');
+  const [noOfPackages2, setNoOfPackages2] = useState('');
+  const [userInputTextArea2, setUserInputTextArea2] = useState('');
   const [deliveryCostObject2, setDeliveryCostObject2] = useState(null);
-  const [noOfVehicles, setNoOfVehicles] = useState('2');
-  const [maxSpeed, setMaxSpeed] = useState('70');
-  const [maxWeight, setMaxWeight] = useState('200');
+  const [noOfVehicles, setNoOfVehicles] = useState('');
+  const [maxSpeed, setMaxSpeed] = useState('');
+  const [maxWeight, setMaxWeight] = useState('');
   const [selectedProblem, setSelectedProblem] = useState('1');
 
   const validateDeliveryInfo = (problemNo) => {
     let textArray, noOfPackage;
     if (problemNo === '1') {
+      if (userInputTextArea === '') {
+        return false;
+      }
       textArray = userInputTextArea.trim().split(/\s+/);
       noOfPackage = noOfPackages
     } else {
+      if (userInputTextArea2 === '') {
+        return false;
+      }
       textArray = userInputTextArea2.trim().split(/\s+/);
       noOfPackage = noOfPackages2
     }
@@ -125,15 +127,11 @@ export default function Home() {
     // take the powerset of the rest of the array
     let restPowerset = powerSet(arr);
 
-    // console.log('restPowerset', restPowerset)
-
-
     // for each set in the power set of arr minus its last element,
     // include that set in the powerset of arr both with and without
     // the last element of arr
     let powerset = [];
     for (let i = 0; i < restPowerset.length; i++) {
-
       let set = restPowerset[i];
 
       // without last element
@@ -343,7 +341,7 @@ export default function Home() {
                     value={baseDeliverCost}
                     onChange={(e) => setBaseDeliveryCost(e.target.value)}
                     error={isNaN(baseDeliverCost)}
-                    helperText={isNaN(baseDeliverCost) ? "Enter number only" : "" }
+                    helperText={isNaN(baseDeliverCost) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "delivery-cost-text-field" }}
                   />
                   <TextField
@@ -353,7 +351,7 @@ export default function Home() {
                     value={noOfPackages}
                     onChange={(e) => setNoOfPackages(e.target.value)}
                     error={isNaN(noOfPackages)}
-                    helperText={isNaN(noOfPackages) ? "Enter number only" : "" }
+                    helperText={isNaN(noOfPackages) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "packages-text-field" }}
                   />
                 </Box>
@@ -375,7 +373,8 @@ export default function Home() {
                     multiline
                     rows={8}
                     error={validateDeliveryInfo('1')}
-                    placeholder="'Enter package info..."
+                    placeholder="Enter package info..."
+                    helperText={validateDeliveryInfo('1') ? "Invalid format" : ""}
                     inputProps={{ "data-testid": "deliver-info-text-field" }}
                   />
                 </Box>
@@ -384,8 +383,10 @@ export default function Home() {
                   {' Sample input: \nPKG1 5 5 OFR001\nPKG2 15 5 OFR002\nPKG3 10 100 OFR003'}
                 </div>
               </div>
+              <div className={styles.submitButton}>
+                <Button style={{width: 320}} variant="contained" onClick={handleSubmitProblem1} data-testid="submit">Submit</Button>
+              </div>
 
-              <Button className={styles.submitButton} variant="contained" onClick={handleSubmitProblem1} data-testid="submit">Submit</Button>
 
               <div data-testid="result">
                 {results()}
@@ -416,7 +417,7 @@ export default function Home() {
                     value={baseDeliverCost2}
                     onChange={(e) => setBaseDeliveryCost2(e.target.value)}
                     error={isNaN(baseDeliverCost2)}
-                    helperText={isNaN(baseDeliverCost2) ? "Enter number only" : "" }
+                    helperText={isNaN(baseDeliverCost2) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "delivery-cost-text-field-2" }}
                   />
                   <TextField
@@ -426,7 +427,7 @@ export default function Home() {
                     value={noOfPackages2}
                     onChange={(e) => setNoOfPackages2(e.target.value)}
                     error={isNaN(noOfPackages2)}
-                    helperText={isNaN(noOfPackages2) ? "Enter number only" : "" }
+                    helperText={isNaN(noOfPackages2) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "packages-text-field-2" }}
                   />
                 </Box>
@@ -448,7 +449,8 @@ export default function Home() {
                     multiline
                     rows={8}
                     error={validateDeliveryInfo('2')}
-                    placeholder="'Enter package info..."
+                    placeholder="Enter package info..."
+                    helperText={validateDeliveryInfo('2') ? "Invalid format" : ""}
                     inputProps={{ "data-testid": "deliver-info-text-field-2" }}
                   />
                 </Box>
@@ -473,7 +475,7 @@ export default function Home() {
                     value={noOfVehicles}
                     onChange={(e) => setNoOfVehicles(e.target.value)}
                     error={isNaN(noOfVehicles)}
-                    helperText={isNaN(noOfVehicles) ? "Enter number only" : "" }
+                    helperText={isNaN(noOfVehicles) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "no-of-vehicles-text-field-2" }}
                   />
                   <TextField
@@ -483,7 +485,7 @@ export default function Home() {
                     value={maxSpeed}
                     onChange={(e) => setMaxSpeed(e.target.value)}
                     error={isNaN(maxSpeed)}
-                    helperText={isNaN(maxSpeed) ? "Enter number only" : "" }
+                    helperText={isNaN(maxSpeed) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "max-speed-text-field-2" }}
                   />
                   <TextField
@@ -493,13 +495,16 @@ export default function Home() {
                     value={maxWeight}
                     onChange={(e) => setMaxWeight(e.target.value)}
                     error={isNaN(maxWeight)}
-                    helperText={isNaN(maxWeight) ? "Enter number only" : "" }
+                    helperText={isNaN(maxWeight) ? "Enter number only" : ""}
                     inputProps={{ "data-testid": "max-weight-text-field-2" }}
                   />
                 </Box>
               </div>
 
-              <Button className={styles.submitButton} variant="contained" onClick={handleSubmitProblem2} data-testid="submit-2">Submit</Button>
+              <div className={styles.submitButton}>
+                <Button style={{ width: 320 }} variant="contained" onClick={handleSubmitProblem2} data-testid="submit-2">Submit</Button>
+              </div>
+
               <div data-testid="result-2">
                 {results2()}
               </div>
