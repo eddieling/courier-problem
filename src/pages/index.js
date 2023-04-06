@@ -8,14 +8,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import OfferCodes  from "./../../config.json";
 
 export default function Home() {
-  const [baseDeliverCost, setBaseDeliveryCost] = useState('');
+  const [baseDeliveryCost, setBaseDeliveryCost] = useState('');
   const [noOfPackages, setNoOfPackages] = useState('');
   const [userInputTextArea, setUserInputTextArea] = useState('');
   const [deliveryCostObject, setDeliveryCostObject] = useState(null);
 
-  const [baseDeliverCost2, setBaseDeliveryCost2] = useState('');
+  const [baseDeliveryCost2, setBaseDeliveryCost2] = useState('');
   const [noOfPackages2, setNoOfPackages2] = useState('');
   const [userInputTextArea2, setUserInputTextArea2] = useState('');
   const [deliveryCostObject2, setDeliveryCostObject2] = useState(null);
@@ -23,6 +24,15 @@ export default function Home() {
   const [maxSpeed, setMaxSpeed] = useState('');
   const [maxWeight, setMaxWeight] = useState('');
   const [selectedProblem, setSelectedProblem] = useState('1');
+  const [isError, setIsError] = useState(false);
+
+  const validateInput = (inputValue) => {
+    if (isNaN(inputValue) || parseInt(inputValue) <= 0){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   const validateDeliveryInfo = (problemNo) => {
     let textArray, noOfPackage;
@@ -78,12 +88,12 @@ export default function Home() {
   }
 
 
-  const getDeliveryCost = (inputArray, noOfPackages, baseDeliverCost, deliveryObj) => {
+  const getDeliveryCost = (inputArray, noOfPackages, baseDeliveryCost, deliveryObj) => {
     for (let i = 0; i < noOfPackages; i++) {
       let packageWeight = inputArray[i * 4 + 1];
       let deliveryDistance = inputArray[i * 4 + 2];
       let offerCode = inputArray[i * 4 + 3];
-      let grossCost = parseInt(baseDeliverCost) + packageWeight * 10 + deliveryDistance * 5;
+      let grossCost = parseInt(baseDeliveryCost) + packageWeight * 10 + deliveryDistance * 5;
       let finalDeliveryCost;
       let totalDiscount = 0;
 
@@ -109,9 +119,15 @@ export default function Home() {
   }
 
   const handleSubmitProblem1 = () => {
+    if (baseDeliveryCost === '' || noOfPackages === '' || userInputTextArea === '') {
+      setIsError(true)
+      return;
+    } else {
+      setIsError(false)
+    }
     let inputArray = userInputTextArea.split(/\s+/);
     let deliveryObj = [];
-    deliveryObj = getDeliveryCost(inputArray, noOfPackages, baseDeliverCost, deliveryObj);
+    deliveryObj = getDeliveryCost(inputArray, noOfPackages, baseDeliveryCost, deliveryObj);
     setDeliveryCostObject(deliveryObj)
   }
 
@@ -193,7 +209,7 @@ export default function Home() {
   const handleSubmitProblem2 = () => {
     let inputArray = userInputTextArea2.split(/\s+/);
     let remainingDeliveries = [];
-    remainingDeliveries = getDeliveryCost(inputArray, noOfPackages2, baseDeliverCost2, remainingDeliveries);
+    remainingDeliveries = getDeliveryCost(inputArray, noOfPackages2, baseDeliveryCost2, remainingDeliveries);
 
     for (let i = 0; i < noOfPackages2; i++) {
       let pkgId = inputArray[i * 4];
@@ -338,10 +354,10 @@ export default function Home() {
                     id="deliver-cost"
                     label="Delivery Cost"
                     placeholder="Enter a number"
-                    value={baseDeliverCost}
+                    value={baseDeliveryCost}
                     onChange={(e) => setBaseDeliveryCost(e.target.value)}
-                    error={isNaN(baseDeliverCost)}
-                    helperText={isNaN(baseDeliverCost) ? "Enter number only" : ""}
+                    error={validateInput(baseDeliveryCost)}
+                    helperText={validateInput(baseDeliveryCost) ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "delivery-cost-text-field" }}
                   />
                   <TextField
@@ -350,8 +366,8 @@ export default function Home() {
                     placeholder="Enter a number"
                     value={noOfPackages}
                     onChange={(e) => setNoOfPackages(e.target.value)}
-                    error={isNaN(noOfPackages)}
-                    helperText={isNaN(noOfPackages) ? "Enter number only" : ""}
+                    error={validateInput(noOfPackages)}
+                    helperText={validateInput(noOfPackages) ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "packages-text-field" }}
                   />
                 </Box>
@@ -385,6 +401,9 @@ export default function Home() {
               </div>
               <div className={styles.submitButton}>
                 <Button style={{width: 320}} variant="contained" onClick={handleSubmitProblem1} data-testid="submit">Submit</Button>
+                {isError && (
+                  <p style={{color: 'red'}}>Please fill up all fields</p>
+                )}
               </div>
 
 
@@ -414,10 +433,10 @@ export default function Home() {
                     id="deliver-cost"
                     label="Delivery Cost"
                     placeholder="Enter a number"
-                    value={baseDeliverCost2}
+                    value={baseDeliveryCost2}
                     onChange={(e) => setBaseDeliveryCost2(e.target.value)}
-                    error={isNaN(baseDeliverCost2)}
-                    helperText={isNaN(baseDeliverCost2) ? "Enter number only" : ""}
+                    error={validateInput(baseDeliveryCost2)}
+                    helperText={validateInput(baseDeliveryCost2) ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "delivery-cost-text-field-2" }}
                   />
                   <TextField
@@ -426,8 +445,8 @@ export default function Home() {
                     placeholder="Enter a number"
                     value={noOfPackages2}
                     onChange={(e) => setNoOfPackages2(e.target.value)}
-                    error={isNaN(noOfPackages2)}
-                    helperText={isNaN(noOfPackages2) ? "Enter number only" : ""}
+                    error={validateInput(noOfPackages2)}
+                    helperText={validateInput(noOfPackages2) ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "packages-text-field-2" }}
                   />
                 </Box>
@@ -474,8 +493,8 @@ export default function Home() {
                     placeholder="Enter a number"
                     value={noOfVehicles}
                     onChange={(e) => setNoOfVehicles(e.target.value)}
-                    error={isNaN(noOfVehicles)}
-                    helperText={isNaN(noOfVehicles) ? "Enter number only" : ""}
+                    error={validateInput(noOfVehicles)}
+                    helperText={validateInput(noOfVehicles)  ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "no-of-vehicles-text-field-2" }}
                   />
                   <TextField
@@ -484,8 +503,8 @@ export default function Home() {
                     placeholder="Enter a number"
                     value={maxSpeed}
                     onChange={(e) => setMaxSpeed(e.target.value)}
-                    error={isNaN(maxSpeed)}
-                    helperText={isNaN(maxSpeed) ? "Enter number only" : ""}
+                    error={validateInput(maxSpeed)}
+                    helperText={validateInput(maxSpeed) ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "max-speed-text-field-2" }}
                   />
                   <TextField
@@ -494,8 +513,8 @@ export default function Home() {
                     placeholder="Enter a number"
                     value={maxWeight}
                     onChange={(e) => setMaxWeight(e.target.value)}
-                    error={isNaN(maxWeight)}
-                    helperText={isNaN(maxWeight) ? "Enter number only" : ""}
+                    error={validateInput(maxWeight)}
+                    helperText={validateInput(maxWeight) ? "Enter positive number only" : ""}
                     inputProps={{ "data-testid": "max-weight-text-field-2" }}
                   />
                 </Box>
@@ -503,6 +522,9 @@ export default function Home() {
 
               <div className={styles.submitButton}>
                 <Button style={{ width: 320 }} variant="contained" onClick={handleSubmitProblem2} data-testid="submit-2">Submit</Button>
+                {isError && (
+                  <p style={{color: 'red'}}>Please fill up all fields</p>
+                )}
               </div>
 
               <div data-testid="result-2">
