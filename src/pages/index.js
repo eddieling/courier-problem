@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import OfferCodes  from "./../../config.json";
+import OfferCodes from "./../../config.json";
 
 export default function Home() {
   const [baseDeliveryCost, setBaseDeliveryCost] = useState('');
@@ -27,7 +27,7 @@ export default function Home() {
   const [isError, setIsError] = useState(false);
 
   const validateInput = (inputValue) => {
-    if (isNaN(inputValue) || parseInt(inputValue) <= 0){
+    if (isNaN(inputValue) || parseInt(inputValue) <= 0) {
       return true;
     } else {
       return false;
@@ -63,28 +63,22 @@ export default function Home() {
   }
 
   const checkOfferCodeValididity = (offerCode) => {
-    if (offerCode === 'OFR001' || offerCode === 'OFR002' || offerCode === 'OFR003')
-      return true
+    let isCodeValid = OfferCodes.offerCodes.find(code => code.id === offerCode);
+    if (isCodeValid) {
+      return true;
+    }
     else return false
   }
 
   const getDiscountPercentage = (offerCode, deliveryDistance, packageWeight) => {
-    switch (offerCode) {
-      case 'OFR001':
-        if (deliveryDistance < 200 && packageWeight >= 70 && packageWeight <= 200) {
-          return 10;
-        } else return 0;
-      case 'OFR002':
-        if (deliveryDistance >= 50 && deliveryDistance <= 150 && packageWeight >= 100 && packageWeight <= 250) {
-          return 7;
-        } else return 0;
-      case 'OFR003':
-        if (deliveryDistance >= 50 && deliveryDistance <= 250 && packageWeight >= 10 && packageWeight <= 150) {
-          return 5;
-        } else return 0;
-      default:
-        return 0;
-    }
+    let code = OfferCodes.offerCodes.find(code => code.id === offerCode);
+    if (deliveryDistance <= code.maxDistanceAllowed
+      && deliveryDistance >= code.minDistanceAllowed
+      && packageWeight <= code.maxWeightAllowed
+      && packageWeight >= code.minWeightAllowed
+    ) {
+      return code.discountPercentage;
+    } else return 0;
   }
 
 

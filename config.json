@@ -1,0 +1,28 @@
+{
+    "offerCodes": [
+        {
+            "id": "OFR001",
+            "discountPercentage": 10,
+            "maxDistanceAllowed": 199,
+            "minDistanceAllowed": 0,
+            "maxWeightAllowed": 200,
+            "minWeightAllowed": 70
+        },
+        {
+            "id": "OFR002",
+            "discountPercentage": 7,
+            "maxDistanceAllowed": 150,
+            "minDistanceAllowed": 50,
+            "maxWeightAllowed": 250,
+            "minWeightAllowed": 100
+        },
+        {
+            "id": "OFR003",
+            "discountPercentage": 5,
+            "maxDistanceAllowed": 250,
+            "minDistanceAllowed": 50,
+            "maxWeightAllowed": 150,
+            "minWeightAllowed": 10
+        }
+    ]
+}
