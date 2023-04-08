@@ -12,15 +12,17 @@ import {
 } from '../../utils/utils';
 
 const Problem2 = () => {
-    const [baseDeliveryCost2, setBaseDeliveryCost2] = useState('100');
-    const [noOfPackages2, setNoOfPackages2] = useState('5');
+    const [baseDeliveryCost2, setBaseDeliveryCost2] = useState('');
+    const [noOfPackages2, setNoOfPackages2] = useState('');
     const [userInputTextArea2, setUserInputTextArea2] = useState('');
     const [deliveryCostObject2, setDeliveryCostObject2] = useState(null);
-    const [noOfVehicles, setNoOfVehicles] = useState('1');
-    const [maxSpeed, setMaxSpeed] = useState('70');
-    const [maxWeight, setMaxWeight] = useState('200');
+    const [noOfVehicles, setNoOfVehicles] = useState('');
+    const [maxSpeed, setMaxSpeed] = useState('');
+    const [maxWeight, setMaxWeight] = useState('');
     const [isError, setIsError] = useState(false);
 
+
+    // will return unique combinations of packages
     const powerSet = function (arr) {
         // the power set of [] is [[]]
         if (arr.length === 0) {
@@ -51,6 +53,7 @@ const Problem2 = () => {
         return powerset;
     };
 
+    // will return all combinations of packages that will have total weight less than the given value
     const subsetsLessThan = function (arr, number) {
 
         // all subsets of arr
@@ -77,6 +80,8 @@ const Problem2 = () => {
         return subsets;
     };
 
+
+    // will return all eligible combinations of packages
     const getDeliverySubsets = (deliveryObj) => {
         let deliverySubsets = subsetsLessThan(deliveryObj, maxWeight)
 
@@ -90,16 +95,6 @@ const Problem2 = () => {
         })
         return sortedDeliverySubsetByNoOfPackages;
     };
-
-    // const getTotalDeliveryTime = (deliveryObj) => {
-    //     deliveryObj.deliveryTime = parseFloat((deliveryObj.deliveryDistance / maxSpeed).toFixed(3).slice(0, -1)) * 2;
-    //     return deliveryObj;
-    // };
-
-    // const getPackageDeliveryTime = (deliveryObj, currentTime) => {
-    //     return parseFloat((deliveryObj.deliveryDistance / maxSpeed).toFixed(3).slice(0, -1)) + currentTime;
-    // };
-
 
     const handleSubmitProblem2 = () => {
         if (baseDeliveryCost2 === '' 
@@ -152,18 +147,13 @@ const Problem2 = () => {
                     if (obj.pkgId) {
                         let found = remainingDeliveries.findIndex(obj2 => obj2.pkgId === obj.pkgId)
                         if (found > -1) {
-                            console.log('REMOVING ' + remainingDeliveries[found].pkgId)
                             remainingDeliveries[found].deliveryTime = getPackageDeliveryTime(remainingDeliveries[found], currentTime, maxSpeed).toFixed(2);
-                            console.log('remainingDeliveries[found].deliveryTime', remainingDeliveries[found].deliveryTime)
                             finalDelivery.push(remainingDeliveries[found])
-
                             remainingDeliveries.splice(found, 1)
                         }
                     }
                 })
-
                 availableVehicle -= 1;
-
             }
         }
         // sort package by id
@@ -176,8 +166,8 @@ const Problem2 = () => {
           deliveryCostObject2 && (
             <div className={styles.output} >
               <p style={{ marginBottom: '5px', marginTop: 0, marginLeft: 8 }}>Output:</p>
-              {deliveryCostObject2.map(obj => (
-                <div style={{ marginLeft: 8 }}>
+              {deliveryCostObject2.map((obj, index) => (
+                <div key={index} style={{ marginLeft: 8 }}>
                   {obj.pkgId} {obj.totalDiscount} {obj.totalCost} {obj.deliveryTime}
                 </div>
               ))}

@@ -34,8 +34,8 @@ const Problem1 = () => {
           deliveryCostObject && (
             <div className={styles.output} >
               <p style={{ marginBottom: '5px' }}>Output:</p>
-              {deliveryCostObject.map(obj => (
-                <div >
+              {deliveryCostObject.map((obj, index) => (
+                <div key={index}>
                   {obj.pkgId} {obj.totalDiscount} {obj.totalCost}
                 </div>
               ))}
