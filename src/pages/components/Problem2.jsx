@@ -79,11 +79,16 @@ const Problem2 = () => {
 
     const getDeliverySubsets = (deliveryObj) => {
         let deliverySubsets = subsetsLessThan(deliveryObj, maxWeight)
-        let sortedDeliverySubset = deliverySubsets.sort((a, b) => b.totalWeight - a.totalWeight);
-        sortedDeliverySubset.forEach(subset => {
+
+        //sort by total weight
+        let sortedDeliverySubsetByWeight = deliverySubsets.sort((a, b) => b.totalWeight - a.totalWeight);
+        
+        //sort by num of packages
+        let sortedDeliverySubsetByNoOfPackages = sortedDeliverySubsetByWeight.sort((a, b) => b.length - a.length);
+        sortedDeliverySubsetByNoOfPackages.forEach(subset => {
             getTotalDeliveryTime(subset, maxSpeed)
         })
-        return sortedDeliverySubset;
+        return sortedDeliverySubsetByNoOfPackages;
     };
 
     // const getTotalDeliveryTime = (deliveryObj) => {
