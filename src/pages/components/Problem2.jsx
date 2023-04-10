@@ -282,7 +282,7 @@ const Problem2 = () => {
               <div className={styles.submitButton}>
                 <Button style={{ width: 320 }} variant="contained" onClick={handleSubmitProblem2} data-testid="submit-2">Submit</Button>
                 {isError && (
-                  <p style={{color: 'red'}}>Please fill up all fields</p>
+                  <p style={{color: 'red'}} data-testid='error-message-2'>Please fill up all fields</p>
                 )}
               </div>
 

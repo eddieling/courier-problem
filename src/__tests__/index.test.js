@@ -1,9 +1,8 @@
 // __tests__/index.test.js
-
+import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Home from '../pages/index';
-import '@testing-library/jest-dom';
-let app = require("../pages/index");
+import '@testing-library/jest-dom'
 
 describe('Render components correctly', () => {
   it('renders a heading', () => {
@@ -13,7 +12,7 @@ describe('Render components correctly', () => {
       name: 'Coding Challenge Courier Service',
     })
 
-    expect(heading).toBeInTheDocument()
+    expect(heading).toBeInTheDocument();
     expect(screen.getByTestId("submit")).toBeInTheDocument();
   })
 
@@ -100,26 +99,36 @@ describe('Calculates output correctly', () => {
 });
 
 
-describe('Problem 1 Text fields should be invalid when user enters non-numeric value', () => {
+describe('Problem 1 Text fields should be invalid when user enters invalid value', () => {
 
-  it("Delivery Cost text field should be invalid", () => {
+  it("Delivery Cost text field should be invalid when user enters string value", () => {
     render(<Home />);
     const deliveryCost = screen.getByTestId("delivery-cost-text-field");
     fireEvent.change(deliveryCost, { target: { value: 'abc' } });
     expect(deliveryCost).toBeInvalid();
   });
-  it("No of Packages text field should be invalid", () => {
+  it("Delivery Cost text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const deliveryCost = screen.getByTestId("delivery-cost-text-field");
+    fireEvent.change(deliveryCost, { target: { value: '-1' } });
+    expect(deliveryCost).toBeInvalid();
+  });
+  it("No of Packages text field should be invalid when user enters string value", () => {
     render(<Home />);
     const noOfPackages = screen.getByTestId("packages-text-field");
     fireEvent.change(noOfPackages, { target: { value: 'abc' } });
     expect(noOfPackages).toBeInvalid();
   });
+  it("No of Packages text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const noOfPackages = screen.getByTestId("packages-text-field");
+    fireEvent.change(noOfPackages, { target: { value: '-1' } });
+    expect(noOfPackages).toBeInvalid();
+  });
 });
 
-describe('Problem 2 Text fields should be invalid when user enters non-numeric value', () => {
-
-
-  it("Delivery Cost 2 text field should be invalid", () => {
+describe('Problem 2 Text fields should be invalid when user enters invalid value', () => {
+  it("Delivery Cost 2 text field should be invalid when user enters string value", () => {
     render(<Home />);
     const radio2 = screen.getByTestId("radio-2");
     fireEvent.click(radio2);
@@ -127,7 +136,7 @@ describe('Problem 2 Text fields should be invalid when user enters non-numeric v
     fireEvent.change(deliveryCost2, { target: { value: 'abc' } });
     expect(deliveryCost2).toBeInvalid();
   });
-  it("No of Packages 2 text field should be invalid", () => {
+  it("No of Packages 2 text field should be invalid when user enters string value", () => {
     render(<Home />);
     const radio2 = screen.getByTestId("radio-2");
     fireEvent.click(radio2);
@@ -135,7 +144,7 @@ describe('Problem 2 Text fields should be invalid when user enters non-numeric v
     fireEvent.change(noOfPackages2, { target: { value: 'abc' } });
     expect(noOfPackages2).toBeInvalid();
   });
-  it("No of Vehicles text field should be invalid", () => {
+  it("No of Vehicles text field should be invalid when user enters string value", () => {
     render(<Home />);
     const radio2 = screen.getByTestId("radio-2");
     fireEvent.click(radio2);
@@ -143,7 +152,7 @@ describe('Problem 2 Text fields should be invalid when user enters non-numeric v
     fireEvent.change(noOfVehicles, { target: { value: 'abc' } });
     expect(noOfVehicles).toBeInvalid();
   });
-  it("Max Speed  text field should be invalid", () => {
+  it("Max Speed  text field should be invalid when user enters string value", () => {
     render(<Home />);
     const radio2 = screen.getByTestId("radio-2");
     fireEvent.click(radio2);
@@ -151,7 +160,7 @@ describe('Problem 2 Text fields should be invalid when user enters non-numeric v
     fireEvent.change(maxSpeed, { target: { value: 'abc' } });
     expect(maxSpeed).toBeInvalid();
   });
-  it("Max Weight text field should be invalid", () => {
+  it("Max Weight text field should be invalid when user enters string value", () => {
     render(<Home />);
     const radio2 = screen.getByTestId("radio-2");
     fireEvent.click(radio2);
@@ -159,5 +168,69 @@ describe('Problem 2 Text fields should be invalid when user enters non-numeric v
     fireEvent.change(maxWeight, { target: { value: 'abc' } });
     expect(maxWeight).toBeInvalid();
   });
+
+  it("Delivery Cost 2 text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const radio2 = screen.getByTestId("radio-2");
+    fireEvent.click(radio2);
+    const deliveryCost2 = screen.getByTestId("delivery-cost-text-field-2");
+    fireEvent.change(deliveryCost2, { target: { value: '-1' } });
+    expect(deliveryCost2).toBeInvalid();
+  });
+  it("No of Packages 2 text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const radio2 = screen.getByTestId("radio-2");
+    fireEvent.click(radio2);
+    const noOfPackages2 = screen.getByTestId("packages-text-field-2");
+    fireEvent.change(noOfPackages2, { target: { value: '-1' } });
+    expect(noOfPackages2).toBeInvalid();
+  });
+  it("No of Vehicles text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const radio2 = screen.getByTestId("radio-2");
+    fireEvent.click(radio2);
+    const noOfVehicles = screen.getByTestId("no-of-vehicles-text-field-2");
+    fireEvent.change(noOfVehicles, { target: { value: '-1' } });
+    expect(noOfVehicles).toBeInvalid();
+  });
+  it("Max Speed  text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const radio2 = screen.getByTestId("radio-2");
+    fireEvent.click(radio2);
+    const maxSpeed = screen.getByTestId("max-speed-text-field-2");
+    fireEvent.change(maxSpeed, { target: { value: '-1' } });
+    expect(maxSpeed).toBeInvalid();
+  });
+  it("Max Weight text field should be invalid when user enters negative value", () => {
+    render(<Home />);
+    const radio2 = screen.getByTestId("radio-2");
+    fireEvent.click(radio2);
+    const maxWeight = screen.getByTestId("max-weight-text-field-2");
+    fireEvent.change(maxWeight, { target: { value: '-1' } });
+    expect(maxWeight).toBeInvalid();
+  });
 });
 
+describe('Show error message if user clicks submit button when there are empty fields ', () => {
+
+  it("Problem 1 should display error message", () => {
+    render(<Home />);
+    const submitButton = screen.getByTestId("submit");
+    fireEvent.click(submitButton);
+    const errorMessage = screen.getByTestId("error-message");
+
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it("Problem 2 should display error message", () => {
+    render(<Home />);
+    const radio2 = screen.getByTestId("radio-2");
+    fireEvent.click(radio2);
+
+    const submitButton = screen.getByTestId("submit-2");
+    fireEvent.click(submitButton);
+    const errorMessage = screen.getByTestId("error-message-2");
+
+    expect(errorMessage).toBeInTheDocument();
+  });
+});
